@@ -1,0 +1,38 @@
+/* styles/Destination.module.css */
+
+.destination {
+  padding: 2rem;
+  text-align: center;
+}
+
+.destination h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.destination p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.searchbox {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.searchbox input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.searchbox button {
+  padding: 0.5rem 1rem;
+  margin-left: 0.5rem;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}

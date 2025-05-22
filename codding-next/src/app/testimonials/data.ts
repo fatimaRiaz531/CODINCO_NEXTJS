@@ -1,0 +1,35 @@
+export interface Testimonial {
+  id: number;
+  name: string;
+  role: string;
+  image: string;
+  text: string;
+  rating: number;
+}
+
+export const initialTestimonials: Testimonial[] = [
+  {
+    id: 1,
+    name: 'Sarah Johnson',
+    role: 'Python Developer',
+    image: '/assets/testimonials/sarah.jpg',
+    text: 'The Python course was incredibly well-structured and the instructors were always available to help. I landed my first developer job within a month of completing the course!',
+    rating: 5,
+  },
+  {
+    id: 2,
+    name: 'Michael Chen',
+    role: 'Backend Developer',
+    image: '/assets/testimonials/michael.jpg',
+    text: 'The advanced Python course gave me the skills I needed to build complex applications. The hands-on projects were particularly valuable for my career growth.',
+    rating: 5,
+  },
+  {
+    id: 3,
+    name: 'Emily Rodriguez',
+    role: 'Full Stack Developer',
+    image: '/assets/testimonials/emily.jpg',
+    text: "I came in with zero programming experience, and now I'm working as a full-stack developer. The curriculum is comprehensive and the community support is amazing.",
+    rating: 5,
+  },
+];
