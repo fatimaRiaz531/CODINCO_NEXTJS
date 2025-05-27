@@ -11,76 +11,98 @@
   align-items: center;
   justify-content: space-between;
   padding: 4rem 2rem;
-  min-height: 80vh;
+  min-height: 90vh;
   background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-  color: var(--white);
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+
+.heroSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('/assets/python-pattern.png') repeat;
+  opacity: 0.1;
+  z-index: 0;
 }
 
 .heroContentContainer {
   flex: 1;
   max-width: 600px;
   animation: fadeInLeft 1s ease-out;
+  position: relative;
+  z-index: 1;
 }
 
 .heroContent h1 {
-  font-size: 3.5rem;
+  font-size: 4rem;
   margin-bottom: 1.5rem;
   line-height: 1.2;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  color: #ffffff;
 }
 
 .heroContent p {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
+  font-size: 1.3rem;
+  margin-bottom: 2.5rem;
   opacity: 0.9;
+  line-height: 1.6;
+  color: #ffffff;
+}
+
+.priceTag {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 1.5rem;
+  border-radius: 15px;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(10px);
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.priceTag h3 {
+  font-size: 2.5rem;
+  color: var(--highlight);
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.priceTag p {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #ffffff;
+  opacity: 0.9;
+}
+
+.duration {
+  margin-top: 0.5rem !important;
+  font-weight: 500;
+  color: #ffffff !important;
 }
 
 .heroImageContainer {
   flex: 1;
   max-width: 600px;
   animation: fadeInRight 1s ease-out;
+  position: relative;
+  z-index: 1;
 }
 
-.heroImageContainer img {
+.heroImage {
   width: 100%;
   height: auto;
   border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-}
-
-.searchbox {
-  display: flex;
-  gap: 1rem;
-  margin-top: 2rem;
-}
-
-.searchbox input {
-  flex: 1;
-  padding: 1rem;
-  border: none;
-  border-radius: 50px;
-  font-size: 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--white);
-  backdrop-filter: blur(10px);
-}
-
-.searchbox input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.searchbox button {
-  padding: 1rem 2rem;
-  border: none;
-  border-radius: 50px;
-  background: var(--highlight);
-  color: var(--white);
-  font-weight: bold;
-  cursor: pointer;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  transform: perspective(1000px) rotateY(-5deg);
   transition: transform 0.3s ease;
 }
 
-.searchbox button:hover {
-  transform: translateY(-2px);
+.heroImage:hover {
+  transform: perspective(1000px) rotateY(0deg);
 }
 
 .background-dark {
@@ -88,45 +110,125 @@
   padding: 2rem 0;
 }
 
-.services {
+.courseDetails {
   padding: 4rem 2rem;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
 }
 
-.servicesCards {
+.courseContent {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.courseContent h2 {
+  color: #ffffff;
+  margin-bottom: 2rem;
+}
+
+.featuresList {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
+  margin-top: 3rem;
 }
 
-.card {
-  background: rgba(255, 255, 255, 0.1);
+.feature {
+  background: rgba(255, 255, 255, 0.15);
   padding: 2rem;
   border-radius: 20px;
   backdrop-filter: blur(10px);
   transition: transform 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.card:hover {
+.feature:hover {
   transform: translateY(-10px);
 }
 
-.serviceImgContainer {
+.feature i {
   font-size: 2.5rem;
+  color: var(--highlight);
   margin-bottom: 1.5rem;
 }
 
-.serviceContent h4 {
+.feature h4 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
+  color: #ffffff;
 }
 
-.servicesContent {
+.feature p {
+  color: #ffffff;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.paymentSection {
+  padding: 4rem 2rem;
+}
+
+.paymentContent {
   text-align: center;
   max-width: 600px;
   margin: 0 auto;
+}
+
+.paymentContent h2 {
+  color: #ffffff;
+  margin-bottom: 2rem;
+}
+
+.paymentInfo {
+  margin-top: 3rem;
+}
+
+.paymentMethod {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 2rem;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.paymentMethod i {
+  font-size: 3rem;
+  color: var(--highlight);
+  margin-bottom: 1.5rem;
+}
+
+.paymentMethod h4 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.paymentMethod h3 {
+  font-size: 2rem;
+  color: var(--highlight);
+  margin: 1rem 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  word-break: break-all;
+  letter-spacing: 1px;
+}
+
+.paymentMethod p {
+  color: #ffffff;
+  opacity: 0.9;
+  margin: 0.5rem 0;
+}
+
+.note {
+  font-size: 0.9rem;
+  font-style: italic;
+  margin-top: 1rem !important;
+  color: #ffffff !important;
+}
+
+.feeNote {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #ffffff !important;
+  margin-top: 1rem !important;
 }
 
 .highlightCircle {
@@ -138,106 +240,8 @@
   border-radius: 50%;
   background: var(--highlight);
   margin-bottom: 1rem;
-}
-
-.packages {
-  padding: 4rem 2rem;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-}
-
-.packagesCards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-}
-
-.packageCardImg {
-  height: 200px;
-  overflow: hidden;
-  border-radius: 20px;
-  margin-bottom: 1rem;
-}
-
-.packageCardImg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.packageCardContent {
-  padding: 1rem;
-}
-
-.packageCardContent h4 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-.packageCardContent span {
-  font-size: 0.9rem;
-  color: var(--highlight);
-}
-
-.feedbackSection {
-  padding: 4rem 2rem;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-}
-
-.feedbackDetails {
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.offers {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 2rem;
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-}
-
-.offers h3 {
-  font-size: 2rem;
-  margin: 1rem 0;
-}
-
-.offers span {
-  color: var(--highlight);
-}
-
-.offers ul {
-  list-style: none;
-  padding: 0;
-  margin: 1.5rem 0;
-}
-
-.offers li {
-  margin: 1rem 0;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 2rem;
-}
-
-.socials {
-  display: flex;
-}
-
-.social {
-  margin-left: 1rem;
+  color: #ffffff;
+  font-weight: bold;
 }
 
 /* Animations */
@@ -268,7 +272,7 @@
   .heroSection {
     flex-direction: column;
     text-align: center;
-    padding: 2rem 1rem;
+    padding: 3rem 1rem;
   }
 
   .heroContent h1 {
@@ -279,18 +283,13 @@
     margin-top: 2rem;
   }
 
-  .services,
-  .packages,
-  .feedbackSection {
+  .heroImage {
+    transform: none;
+  }
+
+  .courseDetails,
+  .paymentSection {
     padding: 2rem 1rem;
-  }
-
-  .searchbox {
-    flex-direction: column;
-  }
-
-  .searchbox button {
-    width: 100%;
   }
 }
 
@@ -299,11 +298,177 @@
     font-size: 2rem;
   }
 
-  .card {
+  .heroContent p {
+    font-size: 1.1rem;
+  }
+
+  .priceTag h3 {
+    font-size: 2rem;
+  }
+
+  .feature {
     padding: 1.5rem;
   }
 
-  .serviceImgContainer {
+  .feature i {
     font-size: 2rem;
+  }
+
+  .paymentMethod h3 {
+    font-size: 1.5rem;
+  }
+}
+
+.scheduleSection,
+.toolsSection,
+.syllabusSection {
+  padding: 4rem 2rem;
+}
+
+.scheduleContent,
+.toolsContent,
+.syllabusContent {
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.scheduleContent h2,
+.toolsContent h2,
+.syllabusContent h2 {
+  color: #ffffff;
+  margin-bottom: 2rem;
+}
+
+.scheduleGrid,
+.toolsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.scheduleItem,
+.tool {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 2rem;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.scheduleItem:hover,
+.tool:hover {
+  transform: translateY(-10px);
+}
+
+.scheduleItem i,
+.tool i {
+  font-size: 2.5rem;
+  color: var(--highlight);
+  margin-bottom: 1.5rem;
+}
+
+.scheduleItem h4,
+.tool h4 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.scheduleItem p,
+.tool p {
+  color: #ffffff;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.syllabusGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.week {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 2rem;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: left;
+}
+
+.week:hover {
+  transform: translateY(-10px);
+}
+
+.week h4 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--highlight);
+}
+
+.week p {
+  font-size: 1.1rem;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.week ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.week ul li {
+  color: #ffffff;
+  opacity: 0.9;
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.week ul li::before {
+  content: '•';
+  color: var(--highlight);
+  position: absolute;
+  left: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .scheduleSection,
+  .toolsSection,
+  .syllabusSection {
+    padding: 2rem 1rem;
+  }
+
+  .syllabusGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .scheduleItem,
+  .tool,
+  .week {
+    padding: 1.5rem;
+  }
+
+  .scheduleItem i,
+  .tool i {
+    font-size: 2rem;
+  }
+
+  .week h4 {
+    font-size: 1.3rem;
+  }
+
+  .week p {
+    font-size: 1rem;
   }
 }

@@ -5,7 +5,7 @@ import styles from '../styles/Home.module.css';
 
 const Home = () => {
   const handlePackageClick = () => {
-    window.location.href = '/courses';
+    window.location.href = '/checkout';
   };
 
   const handleFeedbackClick = () => {

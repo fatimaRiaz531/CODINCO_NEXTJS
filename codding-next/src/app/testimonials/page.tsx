@@ -4,43 +4,40 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import styles from './Testimonials.module.css';
 import { Testimonial, initialTestimonials } from './data';
+import Image from 'next/image';
 
-interface FormData {
+interface Review {
+  id: string;
   name: string;
   rating: number;
   review: string;
+  date: string;
+  avatar: string;
 }
 
 export default function Testimonials() {
-  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
-  const [formData, setFormData] = useState<FormData>({
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [formData, setFormData] = useState({
     name: '',
     rating: 5,
     review: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   useEffect(() => {
-    setTestimonials(initialTestimonials);
+    fetchReviews();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.name || !formData.review) {
-      alert('Please fill in all required fields');
-      return;
+  const fetchReviews = async () => {
+    try {
+      const response = await fetch('/api/reviews');
+      const data = await response.json();
+      setReviews(data.reviews);
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
     }
-
-    const newTestimonial: Testimonial = {
-      id: testimonials.length + 1,
-      name: formData.name,
-      role: 'Student',
-      image: '/assets/testimonials/default.jpg',
-      text: formData.review,
-      rating: formData.rating,
-    };
-
-    setTestimonials([...testimonials, newTestimonial]);
-    setFormData({ name: '', rating: 5, review: '' });
   };
 
   const handleChange = (
@@ -49,31 +46,81 @@ export default function Testimonials() {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: name === 'rating' ? parseInt(value) : value,
+      [name]: value,
     }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError('');
+    setSubmitSuccess(false);
+
+    try {
+      const response = await fetch('/api/reviews', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          date: new Date().toISOString(),
+          avatar: `/assets/Avatar${Math.floor(Math.random() * 10) + 1}.png`,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit review');
+      }
+
+      setSubmitSuccess(true);
+      setFormData({ name: '', rating: 5, review: '' });
+      fetchReviews(); // Refresh reviews after submission
+    } catch (error) {
+      setSubmitError('Failed to submit review. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <main className={styles.testimonialsContainer}>
       <div className={styles.header}>
-        <h1>Student Success Stories</h1>
-        <p>Hear from our graduates about their journey with us</p>
+        <h1>Student Reviews</h1>
+        <p>
+          Hear what our students have to say about their learning experience
+        </p>
       </div>
 
       <div className={styles.testimonialsGrid}>
-        {testimonials.map((testimonial) => (
-          <div key={testimonial.id} className={styles.testimonialCard}>
+        {reviews.map((review) => (
+          <div key={review.id} className={styles.testimonialCard}>
             <div className={styles.testimonialImage}>
-              <img src={testimonial.image} alt={testimonial.name} />
+              <Image
+                src={review.avatar}
+                alt={review.name}
+                width={300}
+                height={200}
+                style={{ objectFit: 'cover' }}
+              />
             </div>
             <div className={styles.testimonialContent}>
-              <p className={styles.testimonialText}>{testimonial.text}</p>
+              <div className={styles.testimonialText}>"{review.review}"</div>
               <div className={styles.testimonialAuthor}>
-                <h3>{testimonial.name}</h3>
-                <span>{testimonial.role}</span>
+                <h3>{review.name}</h3>
                 <div className={styles.rating}>
-                  {'⭐'.repeat(testimonial.rating)}
+                  {[...Array(5)].map((_, i) => (
+                    <span
+                      key={i}
+                      className={
+                        i < review.rating ? styles.starFilled : styles.starEmpty
+                      }
+                    >
+                      ★
+                    </span>
+                  ))}
                 </div>
+                <span>{new Date(review.date).toLocaleDateString()}</span>
               </div>
             </div>
           </div>
@@ -82,6 +129,14 @@ export default function Testimonials() {
 
       <div className={styles.feedbackForm}>
         <h2>Share Your Experience</h2>
+        {submitSuccess && (
+          <div className={styles.successMessage}>
+            Thank you for your review! It will be visible after approval.
+          </div>
+        )}
+        {submitError && (
+          <div className={styles.errorMessage}>{submitError}</div>
+        )}
         <form onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
             <label htmlFor="name">Name</label>
@@ -97,16 +152,24 @@ export default function Testimonials() {
           </div>
           <div className={styles.formGroup}>
             <label htmlFor="rating">Rating</label>
-            <input
-              type="number"
-              id="rating"
-              name="rating"
-              min="1"
-              max="5"
-              value={formData.rating}
-              onChange={handleChange}
-              required
-            />
+            <div className={styles.ratingInput}>
+              {[1, 2, 3, 4, 5].map((star) => (
+                <button
+                  key={star}
+                  type="button"
+                  className={`${styles.starButton} ${
+                    star <= formData.rating
+                      ? styles.starFilled
+                      : styles.starEmpty
+                  }`}
+                  onClick={() =>
+                    setFormData((prev) => ({ ...prev, rating: star }))
+                  }
+                >
+                  ★
+                </button>
+              ))}
+            </div>
           </div>
           <div className={styles.formGroup}>
             <label htmlFor="review">Your Review</label>
@@ -120,8 +183,12 @@ export default function Testimonials() {
               rows={4}
             />
           </div>
-          <button type="submit" className={styles.submitButton}>
-            Submit Review
+          <button
+            type="submit"
+            className={styles.submitButton}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Submitting...' : 'Submit Review'}
           </button>
         </form>
       </div>

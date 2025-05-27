@@ -8,7 +8,7 @@ export default function Navbar() {
       <Link href="/">
         <a>
           <Image
-            src="/assets/wajo.png"
+            src="/assets/logo.jpg"
             alt="CODINCO Logo"
             width={120}
             height={40}
@@ -32,12 +32,7 @@ export default function Navbar() {
         </li>
       </ul>
 
-      <div id="login-container" className={styles.loginContainer}>
-        <Link href="/login" id="loginBtn">
-          <a>
-            <i className="fa-solid fa-user" id="login-btn"></i>
-          </a>
-        </Link>
+      <div>
         <div style={{ display: 'none' }}>
           <Link href="/checkout">
             <a>

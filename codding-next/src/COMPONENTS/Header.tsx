@@ -1,26 +1,36 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import styles from './Header.module.css';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleEnroll = () => {
+    window.open('https://forms.gle/ruawZbLV62XApGsG8', '_blank');
   };
 
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
         <Link href="/" className={styles.logo}>
-          CODINCO
+          <img src="/assets/logo.jpg" alt="CODINCO Logo" />
         </Link>
 
         <button
           className={`${styles.menuButton} ${isMenuOpen ? styles.active : ''}`}
-          onClick={toggleMenu}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label="Toggle menu"
         >
           <span></span>
@@ -32,20 +42,11 @@ export default function Header() {
           <Link href="/" className={styles.navLink}>
             Home
           </Link>
-          <Link href="/courses" className={styles.navLink}>
-            Courses
-          </Link>
-          <Link href="/curriculum" className={styles.navLink}>
-            Curriculum
-          </Link>
+          <button onClick={handleEnroll} className={styles.enrollButton}>
+            Enroll Now
+          </button>
           <Link href="/testimonials" className={styles.navLink}>
             Testimonials
-          </Link>
-          <Link href="/pricing" className={styles.navLink}>
-            Pricing
-          </Link>
-          <Link href="/login" className={styles.loginButton}>
-            Login
           </Link>
         </nav>
       </div>
